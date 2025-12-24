@@ -36,10 +36,14 @@ pipeline {
                    git commit -m "Updated Deployment Manifest"
                 """
                 withCredentials([gitUsernamePassword(credentialsId: 'Github2025', gitToolName: 'Default')]) {
-                  sh "git push https://github.com/SanketNanwatkar/gitOps-register-app main"
+                    sh '''
+                        git config user.email "sanketnanwatkar@gmail.com"
+                        git config user.name "SanketNanwatkar"
+                        git push origin main
+                    '''
                 }
             }
         }
-    
+        
     }
 }
