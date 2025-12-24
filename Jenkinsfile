@@ -13,7 +13,7 @@ pipeline {
 
         stage("Checkout from SCM") {
                steps {
-                   git branch: 'main', credentialsId: 'Github2025', url: 'https://github.com/SanketNanwatkar/gitops-register-app'
+                   git branch: 'main', credentialsId: 'Github2025', url: 'https://github.com/SanketNanwatkar/gitOps-register-app'
                }
         }
 
@@ -36,7 +36,7 @@ pipeline {
                    git commit -m "Updated Deployment Manifest"
                 """
                 withCredentials([gitUsernamePassword(credentialsId: 'Github2025', gitToolName: 'Default')]) {
-                  sh "git push https://github.com/Github2025/gitops-register-app main"
+                  sh "git push https://github.com/Github2025/gitOps-register-app main"
                 }
             }
         }
