@@ -29,19 +29,19 @@ pipeline {
 
         stage("Push the changed deployment file to Git") {
             steps {
-                sh """
-                   git config --global user.name "SanketNanwatkar"
-                   git config --global user.email "sanketnanwatkar@gmail.com"
-                   git add deployment.yaml
-                   git commit -m "Updated Deployment Manifest"
-                """
                 withCredentials([gitUsernamePassword(credentialsId: 'Github2025', gitToolName: 'Default')]) {
-                    sh '''
-                        git config user.email "sanketnanwatkar@gmail.com"
-                        git config user.name "SanketNanwatkar"
-                        git push origin main
-                    '''
+                sh '''
+                  git config user.name "SanketNanwatkar"
+                  git config user.email "sanketnanwatkar@gmail.com"
+
+                  git status
+                  git add deployment.yaml
+                  git commit -m "Updated Deployment Manifest" || echo "Nothing to commit"
+
+                  git push origin main
+                  '''
                 }
+            
             }
         }
         
