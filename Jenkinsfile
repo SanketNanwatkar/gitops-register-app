@@ -29,19 +29,22 @@ pipeline {
 
         stage("Push the changed deployment file to Git") {
             steps {
-                withCredentials([gitUsernamePassword(credentialsId: 'Github2025', gitToolName: 'Default')]) {
+                withCredentials([usernamePassword(
+                    credentialsId: 'Github2025',
+                    usernameVariable: 'GIT_USER',
+                    passwordVariable: 'GIT_TOKEN'
+                    )]) {
                 sh '''
-                  git config user.name "SanketNanwatkar"
-                  git config user.email "sanketnanwatkar@gmail.com"
+                    git config user.name "SanketNanwatkar"
+                    git config user.email "sanketnanwatkar@gmail.com"
 
-                  git status
-                  git add deployment.yaml
-                  git commit -m "Updated Deployment Manifest" || echo "Nothing to commit"
+                    git add deployment.yaml
+                    git commit -m "Updated Deployment Manifest" || echo "Nothing to commit"
 
-                  git push origin main
-                  '''
-                }
-            
+                    git push https://${GIT_USER}:${GIT_TOKEN}@github.com/SanketNanwatkar/gitOps-register-app.git main
+                    '''
+                    }
+
             }
         }
         
